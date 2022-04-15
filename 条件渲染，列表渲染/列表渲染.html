@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- 设置key值，，使节点可以被复用，以最小的代价渲染 BV1GL4y1v79M?p=15 此处应该多听几次理解-->
+        <div v-for="(item,index) in objarr" :key="index">
+            <div v-for="(value, name, index) in item">
+                {{ index }}. {{ name }}: {{ value }}
+            </div>
+        </div>
+        <div>————————————————————————————————————</div>
+    </div>
+    <script>
+        //  数组的更新检测：vue2.0中，数组的更新检测是在数组的内部进行的，而vue3.0中，数组的更新检测是在数组的外部进行的，
+        // 1.push() pop() shift() unshift() splice() sort() reverse()
+        //     会改变原本的数组，都会被页面拦截到，更新数据。
+        // 2.filter() contact() slice() map() 
+        // 新数组替换旧数组，不会被页面拦截到，更新数据。
+        // 3.不能检测以下变动的数组
+        //     this.arr[index] = newValue;
+        //     解决方法：a.  Vm.set(this.arr, index, newValue);
+        //             b.   arr.splice(index, 1, newValue);
+        var box=new Vue({
+            el: '#box',
+            data: {
+                objarr:[
+                    {
+                        name:'liangbw',
+                        age:18
+                    },
+                    {
+                        name : 'lily',
+                        age : 20
+                    },
+                    {
+                        name : 'haha',
+                        age : 22
+                    }
+                ],
+                isShow: true,
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+</html>
