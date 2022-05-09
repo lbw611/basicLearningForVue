@@ -1,0 +1,83 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-04-18 11:15:12
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-09 14:19:33
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- 修饰符.lazy .number .trim -->
+        <div>
+            <input type="text" v-model="inputText" >
+        </div>
+        <div>
+            <!-- <div>{{username}}</div> -->
+            <div>用户名：
+                <input type="text" v-model="username">
+            </div>
+            <input type="checkbox" v-model="isRemember">记住用户名
+            <button @click="login">登录</button>
+        </div>
+        <br>
+        <div>
+            <!-- checkList能获取到选中的value值： -->
+            <input type="checkbox" v-model="checkList" value="vue">vue
+            <input type="checkbox" v-model="checkList" value="react">react
+            <input type="checkbox" v-model="checkList" value="miniprogram">miniprogram
+            <br>
+            <span>checkbox选中的值：{{checkList}}</span>
+        </div>
+        <br>
+        <div>
+            <!-- 只能选一项 -->
+            <input type="radio" value="One" v-model="picked">
+            <label for="one">One</label>
+            <input type="radio"  value="Two" v-model="picked">
+            <label for="two">Two</label>
+            <br>
+            <span>Picked: {{ picked }}</span>
+        </div>
+        <br>
+        <div>
+            <select v-model="selected">
+                <option disabled value="">请选择</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+        </div>
+    </div>
+    <script >
+        var app = new Vue({
+            el: '#box',
+            data: {
+                isRemember:false,
+                username:"",
+                checkList:[],
+                picked:"",
+                selected:"",
+                inputText:"",
+            },
+            methods: {
+                login() {
+                    console.log(this.username);
+                    if(this.isRemember) {
+                        localStorage.setItem("username",this.username);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

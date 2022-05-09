@@ -1,0 +1,51 @@
+<!--
+ * @Description: 
+        0.data =>状态
+        1.methods =>方法，事件绑定，逻辑计算，可以不用return，没有缓存
+        2.computed =>计算属性（重视结果）
+                    =>解决模板过重的问题
+                    =>必须有return，只求结果，有缓存，同步
+        3.watch =>监听属性（重视过程）
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="inputText" >
+        <ul>
+            <li v-for="item in list" :key="item">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        /*计算属性computed实时同步，当需要异步时不好用。故使用watch*/
+        var app = new Vue({
+            el: '#box',
+            data: {
+                inputText:"",
+                list:['aaa','bbb','aab','bba','cca','bac','abc','cba','cab','bca'],
+                Originlist:['aaa','bbb','aab','bba','cca','bac','abc','cba','cab','bca'],
+            },
+            watch: {
+                inputText: function (newVal, oldVal) {
+                    this.list = this.Originlist.filter(item=>item.includes(newVal));
+                    // console.log(newVal, oldVal);
+                }
+            },
+            computed: {
+                listResult: function () {
+                    return this.list.filter(item=>item.includes(this.inputText));
+                },
+            },
+        })
+    </script>
+</body>
+</html>

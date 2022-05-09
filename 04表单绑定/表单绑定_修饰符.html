@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单绑定_修饰符</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <span>实时绑定:</span>
+        <input type="text" v-model="inputText" >
+        {{inputText}}
+        <br>
+        <!-- lazy修饰符 -->
+        <span>lazy修饰符:</span>
+        <input type="text" v-model.lazy="inputLazy" >
+        {{inputLazy}}
+        <br>
+        <!-- number修饰符 -->
+        <span>number修饰符:</span>
+        <input type="number" v-model="inputNumber" >
+        <input type="text" v-model.number="inputNumber" >
+        {{inputText}}
+        <br>
+        <!-- trim修饰符,去首尾空格 -->
+        <span>trim修饰符:</span>
+        <input type="text" v-model.trim="inputTrim" >
+    </div>
+    
+    <script >
+        var app = new Vue({
+            el: '#box',
+            data: {
+                inputText:"",
+                inputLazy:"",
+                inputNumber:"",
+                inputTrim:"",
+            }
+        });
+    </script>
+</body>
+</html>

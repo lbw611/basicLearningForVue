@@ -1,0 +1,51 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-05-09 16:49:04
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-09 17:13:20
+ * @Description: https://m.maizuo.com/v5/#/films/nowPlaying 找接口
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <button @click="handleAxios">axios获取数据</button>
+        <ul>
+            <li v-for="item in datalist" :key="item.filmId">
+                {{item.name}}-{{item.grade}}
+            </li>
+        </ul>
+    </div>
+    
+    <script >
+        var app = new Vue({
+            el: '#box',
+            data: {
+                inputText:"",
+                datalist:[],
+            },
+            methods: {
+                handleAxios() {
+                    // fetch('../json/test.json')
+                    axios.get('../json/maizuo.json')
+                        .then(res=>{
+                            console.log(res.data);
+                            this.datalist = res.data.data.films;
+                        })
+                        .catch(err=>{
+                            console.log(err);
+                        })
+                }
+            }
+        });
+    </script>
+</body>
+</html>
