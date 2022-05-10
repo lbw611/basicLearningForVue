@@ -1,0 +1,81 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-05-09 17:44:08
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-10 11:12:22
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <navbar></navbar>
+        <child></child>
+        <!-- 组件内部定义的子组件，外部是不能访问的 -->
+        <test-child></test-child>
+    </div>
+    <script >
+        //定义一个全局的组件
+        Vue.component('navbar', {
+            template: `<div> <h1>这是一个全局组件</h1>
+                <h2>{{msg}}</h2>
+                <button @click='changeMsg'>改变msg</button>
+                <div>child</div>
+                <child></child>
+                <div>child2</div>
+                <test-child></test-child>
+                </div>`,
+            //data必须是函数写法
+            data() {
+                return {
+                    msg: '这是一个全局组件'
+                }
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = '这是一个全局组件2';
+                }
+            },
+            components: {
+                'testChild': {
+                    template: `<div> <h1>这是testChild组件</h1>
+                    </div>` 
+                }
+            }
+        });
+        //定义一个子组件
+        Vue.component('child', {
+            template: `<div> <h1>这是child组件</h1>
+                `,
+            });
+        //根组件
+        var app = new Vue({
+            el: '#box',
+            data: {
+                inputText:"",
+                datalist:[],
+            },
+            methods: {
+            }
+        });
+        /*
+        定义一个组件
+        1.起名字： js驼峰命名,组件在html中必须用连接符-
+            eg: navbarHeader <navbar-header></navbar-header>
+        2.dom片段 vue单文件
+        3.css样式 拆成单文件组件
+        4.template只能包含一个根节点
+        5.组件之间通过组件通信来交流
+        6.自定义组件的data必须是一个函数形式
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-05-09 17:46:02
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-10 13:43:21
+ * @Description: 父组件传值给子组件
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <div style="background-color: antiquewhite;">根组件标题</div>
+        <!-- :myright动态绑定才是绑定的布尔值，否则为字符串 -->
+        <navbar :myname="pageName" ></navbar>
+        <navbar myname="电影2" :myright="true"></navbar>
+    </div>
+    <script >
+        Vue.component('navbar', {
+            // props: ["myname","myright"],
+            // 属性验证 可以设置为string类型，number类型，boolean类型，对象类型，数组类型
+            // 封装组件时，可以使用props验证属性，验证通过后，可以使用该属性
+            // props: {
+            //     myname:String,
+            //     myright:Boolean
+            // },
+            props: {
+                myname:{
+                    type:String,
+                    default:"电影",//默认值
+                },
+                myright:{
+                    type:Boolean,
+                    default:false,
+                }
+            },
+            template: `<div>
+                <button>left</button>
+                 <span>{{myname}}</span>
+                 <button v-show="myright">right</button>
+                 </div>`,
+        });
+        var app = new Vue({
+            el: '#box',
+            data () {
+                return {
+                    pageName:"父",
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

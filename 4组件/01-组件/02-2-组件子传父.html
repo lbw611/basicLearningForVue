@@ -1,0 +1,84 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-05-10 13:40:51
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-10 14:50:32
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <navbar :myname="pageName" @myevent="handleEvent" ></navbar>
+        <siderbar  v-show="isShow"></siderbar>
+    </div>
+    <script >
+        Vue.component('siderbar',{
+            props:{
+                isShow:{
+                    type:Boolean,
+                    default:true
+                }
+            },
+            template:`
+                <div style="background-color: azure;">
+                    <ul>
+                        <li v-for="(item,index) in list">
+                            {{item}}
+                        </li>
+                    </ul>
+                </div>
+            `,
+            data(){
+                return{
+                    list:['首页','关于我们','联系我们','加入我们']
+                }
+            }
+        });
+        Vue.component('navbar', {
+            props: {
+                myname:{
+                    type:String,
+                    default:"电影",//默认值
+                },
+            },
+            template: `
+            <div style="background-color: antiquewhite;">
+                <button @click="handleClick">侧边栏</button>
+                <span v-show="isShow">{{myname}}</span>
+            </div>`,
+            methods: {
+                handleClick(){
+                    // 子组件向父组件传值
+                    this.$emit('myevent','我是子组件传过来的值');
+                }
+            }
+        });
+        var app = new Vue({
+            el: '#box',
+            data () {
+                return {
+                    pageName:"子传父",
+                    isShow: true,
+                    // list:[12,54,36,8]
+                }
+            },
+            methods: {
+                handleEvent(val){
+                    console.log(val);
+                    this.isShow = !this.isShow;
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
