@@ -1,0 +1,58 @@
+<!--
+ * @Author: Liangbw
+ * @Date: 2022-05-10 15:15:04
+ * @LastEditors: Liangbw
+ * @LastEditTime: 2022-05-10 15:28:13
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/axios.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <button @click="handleFetch">获取数据</button>
+        <ul>
+            <li v-for="item in datalist" :key="item.filmId">
+                {{item.name}}-{{item.grade}}
+            </li>
+        </ul>
+    </div>
+    
+    <script >
+        
+        var app = new Vue({
+            el: '#box',
+            data: {
+                inputText:"",
+                datalist:[],
+            },
+            methods: {
+                handleFetch() {
+                    // fetch('../json/test.json')
+                    fetch('../../json/maizuo.json')
+                        .then(res=>{
+                            //状态码，响应头，拿不到真正的数据
+                            // console.log(res);
+                            // return res.text();//返回一字符串
+                            return res.json();
+                        })
+                        .then(data=>{
+                            console.log(data.data.films);
+                            this.datalist = data.data.films;
+                        })
+                        .catch(err=>{
+                            console.log(err);
+                        })
+                }
+            }
+        });
+    </script>
+</body>
+</html>
